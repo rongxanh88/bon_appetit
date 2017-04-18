@@ -53,10 +53,28 @@ class Pantry
   end
 
   def what_can_i_make
-    
+    available_recipes = []
+    cookbook.each do |recipe|
+      can_make = true
+
+      recipe.ingredients.each do |ingredient, value|
+        if stock.has_key?(ingredient)
+          if stock[ingredient] < value
+            can_make = false
+            break
+          end
+        else
+          can_make = false
+          break
+        end
+      end
+
+      available_recipes.push(recipe.name) if can_make
+    end
+    available_recipes
   end
 
   def how_many_can_i_make
-
+    
   end
 end
