@@ -2,11 +2,12 @@ require './lib/recipe'
 require 'pry'
 
 class Pantry
-  attr_accessor :stock, :shopping_list
+  attr_accessor :stock, :shopping_list, :cookbook
 
   def initialize
     @stock = {}
     @shopping_list = {}
+    @cookbook = []
   end
   
   def stock_check(food)
@@ -47,4 +48,15 @@ class Pantry
     p message
   end
 
+  def add_to_cookbook(recipe)
+    @cookbook.push(recipe)
+  end
+
+  def what_can_i_make
+    
+  end
+
+  def how_many_can_i_make
+
+  end
 end
