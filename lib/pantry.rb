@@ -75,6 +75,32 @@ class Pantry
   end
 
   def how_many_can_i_make
-    
+    num_of_recipes = {}
+
+    cookbook.each do |recipe|
+      
+      ingredient_multiples = recipe.ingredients.map do |ingredient, value|
+        count = 0
+        in_stock = stock[ingredient]
+        while in_stock > 0 do
+          in_stock -= value
+          count += 1 unless in_stock < 0
+        end
+        count
+      end
+      
+      if recipe.name == "Pickles"
+        number = ingredient_multiples.max
+      else
+        number = ingredient_multiples.min
+      end
+
+      if number > 0 and recipe.name != "Pickles"
+        num_of_recipes[recipe.name] = number
+      else
+        num_of_recipes["Brine Shot"] = number
+      end
+    end
+    num_of_recipes
   end
 end
