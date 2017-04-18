@@ -11,7 +11,12 @@ class Recipe
   end
 
   def add_ingredient(ingredient_name, amount)
-    @ingredients[ingredient_name] = amount
+    if ingredients.has_key?(ingredient_name)
+      previous = ingredients[ingredient_name]
+      @ingredients[ingredient_name] = previous + amount
+    else
+      @ingredients[ingredient_name] = amount
+    end
   end
 
   def amount_required(ingredient_name)
