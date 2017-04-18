@@ -1,5 +1,4 @@
 require './lib/pantry'
-# require './lib/recipe'
 require 'minitest/autorun'
 require 'minitest/pride'
 

@@ -36,7 +36,7 @@ class Pantry
 
   def print_shopping_list
     message = ""
-    shopping_list.each do |food, value|
+    shopping_list.map do |food, value|
       if food == "Noodles"
         message << "* Spaghetti #{food}: #{value}\n"
       elsif food == "Sauce"
@@ -53,25 +53,20 @@ class Pantry
   end
 
   def what_can_i_make
-    available_recipes = []
-    cookbook.each do |recipe|
+    available_recipes = cookbook.map do |recipe|
       can_make = true
 
       recipe.ingredients.each do |ingredient, value|
         if stock.has_key?(ingredient)
-          if stock[ingredient] < value
-            can_make = false
-            break
-          end
+          can_make = false if stock[ingredient] < value
         else
           can_make = false
           break
         end
       end
-
-      available_recipes.push(recipe.name) if can_make
+      recipe.name if can_make
     end
-    available_recipes
+    available_recipes.compact
   end
 
   def how_many_can_i_make
@@ -88,7 +83,7 @@ class Pantry
         end
         count
       end
-      
+
       if recipe.name == "Pickles"
         number = ingredient_multiples.max
       else
